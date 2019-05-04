@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
     int[] gameState = {2, 2, 2, 2, 2, 2, 2, 2, 2};
     int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
@@ -32,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
             }
             counter.animate().translationYBy(1500).setDuration(1);
             for (int[] winningPosition : winningPositions) {
+                String winner = "";
                 if (gameState[winningPosition[0]] == gameState[winningPosition[1]] && gameState[winningPosition[1]] == gameState[winningPosition[2]] && gameState[winningPosition[0]] != 2) {
-                    gameActive = false;
-                    String winner = "";
                     if (activePlayer == 1) {
                         winner = "yellow";
                     } else {
                         winner = "Red";
                     }
+                    gameActive = false;
                     Button playAgain = (Button) findViewById(R.id.playAgain);
                     TextView winnerTextView = (TextView) findViewById(R.id.winnerTextView);
                     winnerTextView.setText(winner + " has won");
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     playAgain.setVisibility(View.VISIBLE);
                 }
             }
+            System.out.println(gameActive);
         }
     }
 
@@ -56,7 +59,23 @@ public class MainActivity extends AppCompatActivity {
         winnerTextView.setVisibility(View.INVISIBLE);
         playAgain.setVisibility(View.INVISIBLE);
         GridLayout gridLayout = (GridLayout) findViewById(R.id.gridLayout);
-//        System.out.println(gridLayout.getChildCount());
+        for (int i = 0; i < gridLayout.getChildCount(); i++) {
+            ImageView counter = (ImageView) gridLayout.getChildAt(i);
+            counter.setImageDrawable(null);
+        }
+        this.gameActive = true;
+        for (int i = 0; i < this.gameState.length; i++) {
+            this.gameState[i] = 2;
+        }
+        this.activePlayer = 0;
+    }
+
+    public void resetPlay(View view) {
+        Button playAgain = (Button) findViewById(R.id.playAgain);
+        TextView winnerTextView = (TextView) findViewById(R.id.winnerTextView);
+        winnerTextView.setVisibility(View.INVISIBLE);
+        playAgain.setVisibility(View.INVISIBLE);
+        GridLayout gridLayout = (GridLayout) findViewById(R.id.gridLayout);
         for (int i = 0; i < gridLayout.getChildCount(); i++) {
             ImageView counter = (ImageView) gridLayout.getChildAt(i);
             counter.setImageDrawable(null);
