@@ -15,7 +15,10 @@ public class MainActivity extends AppCompatActivity {
         double amountInPoundsDouble = Double.parseDouble(amountInPounds);
         double amountInDollors = amountInPoundsDouble * 111.34;
         String amountInDollorsString = String.format("%.2f", amountInDollors);
-        Toast.makeText(this, "$" + amountInPoundsDouble + " is $" + amountInDollorsString, Toast.LENGTH_LONG).show();
+        for (int i = 0; i < 5; i++) {
+            Toast.makeText(this, "$" + amountInPoundsDouble + " is $" + amountInDollorsString, Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
